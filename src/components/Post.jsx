@@ -20,8 +20,13 @@ export function  Post(){
             <div className={styles.content}>
                 <p>Fala galeraa 👋</p>
                 <p>Acabei de subir mais um projeto no meu portfolio. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é IgniteFeed 🚀</p>
-                <p>👉 <a href="">github.com/joaopnk</a></p>
-                <p><a href="">#novoprojeto #nlw #rocketseat #ignite</a></p>
+                <p>👉{' '}<a href="">github.com/joaopnk</a></p>
+                <p>
+                    <a href="">#novoprojeto</a>{' '}
+                    <a href="">#nlw</a>{' '}
+                    <a href="">#rocketseat</a>{' '}
+                    <a href="">#ignite</a>
+                </p>
             </div>
         </article>
     )
