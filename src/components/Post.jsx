@@ -1,3 +1,5 @@
+import { format, formatDistanceToNow } from 'date-fns';
+import ptBr from 'date-fns/locale/pt-BR'
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 import styles from './Post.module.css';
@@ -5,35 +7,44 @@ import styles from './Post.module.css';
 
 
 
-export function  Post(props){
-    console.log(props);
+export function  Post({ author, publishedAt, content}){
 
+     const publishedDateFormatted = format(publishedAt, "d 'De' LLLL 'às' HH:mm'h'", {
+        locale: ptBr,
+     })
+
+     const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+        locale: ptBr,
+        addSuffix: true
+     })
+ 
     return (
         <article className={styles.post}>
             <header>
                 <div className={styles.author}>
                     <Avatar 
-                        
-                        src="https://github.com/joaopnk.png" 
+                        src={author.avatarUrl}
                     />
+
                     <div className={styles.authorInfo}>
-                        <strong>João Pedro</strong>
-                        <span>Web Developer</span>
+                        <strong>{author.name}</strong>
+                        <span>{author.role}</span>
                     </div>
                 </div>
 
-                <time title="08 de junho as 21:08" dateTime="2022-06-08 21:08">Publicado há 1hr</time>
+                <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
+                    {publishedDateRelativeToNow}
+                </time>
             </header>
             <div className={styles.content}>
-                <p>Fala galeraa 👋</p>
-                <p>Acabei de subir mais um projeto no meu portfolio. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é IgniteFeed 🚀</p>
-                <p>👉{' '}<a href="">github.com/joaopnk</a></p>
-                <p>
-                    <a href="">#novoprojeto</a>{' '}
-                    <a href="">#nlw</a>{' '}
-                    <a href="">#rocketseat</a>{' '}
-                    <a href="">#ignite</a>
-                </p>
+                {content.map(line => {
+                    if (line.type === 'paragraph'){
+                        return <p>{line.content}</p>
+                    }
+                    else if(line.type === 'link'){
+                        return <p><a href="">{line.content}</a></p>
+                    }
+                })}
             </div>
 
             <form className={styles.commentForm}>
