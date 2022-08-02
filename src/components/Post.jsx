@@ -41,8 +41,15 @@ export function  Post({ author, publishedAt, content}){
         setNewCommentText(event.target.value);
     }
 
-    function deleteComment(comment){
-        console.log(`Deletar comentário ${comment}`);
+    function deleteComment(commentToDelete){
+        console.log(`Deletar comentário ${commentToDelete}`);
+
+        // # Criando uma lista de comentarios sem o que estou deletando
+        const commentsWithoutDeletedOne = comments.filter(comment => {
+            // # Deletando os comentarios que forem diferente do que esta recebendo do commentToDelete (texto)
+            return comment !== commentToDelete;
+        })
+        setComments(commentsWithoutDeletedOne);
     }
 
     return (
@@ -96,7 +103,7 @@ export function  Post({ author, publishedAt, content}){
                             onDeleteComment={deleteComment}
                         /> 
                     )
-                })},
+                })}
             </div>
         </article>
     )
