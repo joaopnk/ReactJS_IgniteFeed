@@ -37,8 +37,14 @@ export function  Post({ author, publishedAt, content}){
     }
 
     function handleNewCommentChange(){
+        event.target.setCustomValidity(``);
         // # Recuperando o valor digitado na text area quando haver mudança (onChange)
         setNewCommentText(event.target.value);
+    }
+
+    function handleNewCommentInvalid(){
+        // # Mostrando pro usuario que precisa preencher ("required")
+        event.target.setCustomValidity(`Este campo é obrigatório!`);
     }
 
     function deleteComment(commentToDelete){
@@ -51,6 +57,9 @@ export function  Post({ author, publishedAt, content}){
         })
         setComments(commentsWithoutDeletedOne);
     }
+
+    // # Para retornar TRUE ou FALSE.. complementar para validação do disabled do button em caso de nenhum texto digitado
+    const isNewCommentEmpty = newCommentText.length === 0;
 
     return (
         <article className={styles.post}>
@@ -88,9 +97,11 @@ export function  Post({ author, publishedAt, content}){
                     placeholder='Deixe um comentário'
                     value={newCommentText}
                     onChange={handleNewCommentChange}
+                    onInvalid={handleNewCommentInvalid}
+                    required
                 />
                 <footer>
-                    <button type="submit">Publicar</button>
+                    <button type="submit" disabled={isNewCommentEmpty}>Publicar</button>
                 </footer>
             </form>
 
