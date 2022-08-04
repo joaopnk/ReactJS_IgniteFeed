@@ -1,12 +1,33 @@
 import { format, formatDistanceToNow } from 'date-fns';
 import ptBr from 'date-fns/locale/pt-BR'
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 
 import styles from './Post.module.css';
 
-export function  Post({ author, publishedAt, content}){
+interface Author {
+    name: string;
+    role: string;
+    avatarUrl: string;
+}
+
+interface Content {
+    type: 'paragraph' | 'link';
+    content: string;
+
+}
+
+// Objeto para definir as propriedades do meu post (tipando os objetos)
+interface postProps {
+    author: Author;
+    publishedAt: Date;
+    content: Content[];
+}
+
+
+
+export function  Post({ author, publishedAt, content}: postProps){
 
     const [comments, setComments] = useState([
         'Post muito bacana, hein?!'
@@ -24,7 +45,7 @@ export function  Post({ author, publishedAt, content}){
         addSuffix: true
     })
 
-    function handleCreateNewComment() {
+    function handleCreateNewComment(event: FormEvent) {
 
         // # Deixando o usuario na mesma pagina quando acontecer o submit
         event.preventDefault();
@@ -36,18 +57,18 @@ export function  Post({ author, publishedAt, content}){
         setNewCommentText('');
     }
 
-    function handleNewCommentChange(){
+    function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>){
         event.target.setCustomValidity(``);
         // # Recuperando o valor digitado na text area quando haver mudança (onChange)
         setNewCommentText(event.target.value);
     }
 
-    function handleNewCommentInvalid(){
+    function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>){
         // # Mostrando pro usuario que precisa preencher ("required")
         event.target.setCustomValidity(`Este campo é obrigatório!`);
     }
 
-    function deleteComment(commentToDelete){
+    function deleteComment(commentToDelete: string){
         console.log(`Deletar comentário ${commentToDelete}`);
 
         // # Criando uma lista de comentarios sem o que estou deletando
