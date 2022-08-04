@@ -34,5 +34,5 @@
   
 <br>
   
-[<img src="https://global-uploads.webflow.com/61d83a2ebb0ae01ab96e841a/62d86b52dd890b4acef46ec3_OG-ignite.jpg" width="50%">](https://youtu.be/WC-4w8qH9EI)
+[<img src="https://s3-alpha.figma.com/hub/file/1858214157/fd1fc395-2ff0-4d08-83e6-b5e4d08ddba8-cover.png" width="50%">](https://youtu.be/cnL2IxOgCfE)
 
